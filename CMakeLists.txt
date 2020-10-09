@@ -3,4 +3,4 @@ project(technopark_c_cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(technopark_c_cpp first_assignment.c)
+add_executable(technopark_c_cpp main.c string_functions.h string_functions.c filter.h filter.c)

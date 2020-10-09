@@ -9,27 +9,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "string_functions.h"
+#include "filter.h"
 
 #define INIT_SIZE 2
 #define LINE_LENGTH 100
 
-
-size_t strlen(const char *str) {
-    for (size_t len = 0; ; ++str, ++len) {
-        if (!*str) return len;
+void print_and_free_vector(char **strings, size_t size) {
+    for (int i = 0; i < size; ++i) {
+        puts(strings[i]);
+        free(strings[i]);
     }
-}
-
-char* strcpy(char *to, const char *from) {
-    char *tmp = to;
-    while ((*to++ = *from++));
-    return tmp;
-}
-
-int filter_strings(char **strings_vector, int vector_size, char **filtered) {
-    for (int i = 0; i < vector_size; ++i) {
-
-    }
+    free(strings);
 }
 
 int main() {
@@ -37,7 +28,7 @@ int main() {
     int size = INIT_SIZE;
     int capacity = 0;
     char line[LINE_LENGTH];
-    size_t len = 0;
+    size_t len;
 
     strings = (char**) malloc(size * sizeof(char*));
 
@@ -49,7 +40,7 @@ int main() {
         }
 
         // remove trailing '\n'
-        if (len > 0 && line[len - 1] == '\n') {
+        if (line[len - 1] == '\n') {
             line[--len] = '\0';
         }
 
@@ -58,12 +49,14 @@ int main() {
         ++capacity;
     }
 
-    for (int i = 0; i < capacity; ++i) {
-        puts(strings[i]);
-        free(strings[i]);
-    }
+    char **filtered = (char**) malloc(capacity * sizeof(char*));
+    int count_filtered = filter_strings(strings, capacity, filtered);
 
-    free(strings);
+    puts("Initial:");
+    print_and_free_vector(strings, capacity);
+
+    puts("Filtered:");
+    print_and_free_vector(filtered, count_filtered);
 
     return 0;
 }
