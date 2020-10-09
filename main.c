@@ -15,18 +15,43 @@
 #define INIT_SIZE 2
 #define LINE_LENGTH 100
 
-void print_and_free_vector(char **strings, size_t size) {
-    for (int i = 0; i < size; ++i) {
-        puts(strings[i]);
-        free(strings[i]);
-    }
-    free(strings);
-}
+typedef struct StringsVector {
+    char **strings;
+    size_t size;
+    size_t capacity;
+} StringsVector;
+
+StringsVector input_strings_vector();
+void print_and_free_vector(char **strings, size_t size);
+
 
 int main() {
+    puts("Enter lines. To stop, enter a blank line");
+    const StringsVector sv = input_strings_vector();
+    if (!sv.capacity) {
+        puts("No lines were entered. Filtration cannot be performed");
+        return 0;
+    }
+
+    char **filtered = (char**) malloc(sv.capacity * sizeof(char*));
+    size_t count_filtered = filter_strings((const char **) sv.strings, sv.capacity, filtered);
+
+    puts("Entered lines:");
+    print_and_free_vector(sv.strings, sv.capacity);
+
+    printf("%zu lines remain after filtration\n", count_filtered);
+
+    puts("Filtered lines:");
+    print_and_free_vector(filtered, count_filtered);
+
+    return 0;
+}
+
+
+StringsVector input_strings_vector() {
     char **strings;
-    int size = INIT_SIZE;
-    int capacity = 0;
+    size_t size = INIT_SIZE;
+    size_t capacity = 0;
     char line[LINE_LENGTH];
     size_t len;
 
@@ -49,14 +74,15 @@ int main() {
         ++capacity;
     }
 
-    char **filtered = (char**) malloc(capacity * sizeof(char*));
-    int count_filtered = filter_strings(strings, capacity, filtered);
+    StringsVector sv = {strings, size, capacity};
+    return sv;
+}
 
-    puts("Initial:");
-    print_and_free_vector(strings, capacity);
 
-    puts("Filtered:");
-    print_and_free_vector(filtered, count_filtered);
-
-    return 0;
+void print_and_free_vector(char **strings, size_t size) {
+    for (size_t i = 0; i < size; ++i) {
+        puts(strings[i]);
+        free(strings[i]);
+    }
+    free(strings);
 }
