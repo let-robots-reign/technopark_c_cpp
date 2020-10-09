@@ -2,6 +2,7 @@
 #define TECHNOPARK_C_CPP_FILTER_H
 
 #define NEEDED_UNIQUES 3
+#define FILTER_FAILED -1
 
 typedef enum {
     false,
@@ -9,6 +10,6 @@ typedef enum {
 } bool;
 
 bool filter_condition(const char *line);
-size_t filter_strings(const char **strings_vector, int vector_size, char **filtered);
+int filter_strings(const char **strings_vector, int vector_size, char **filtered);
 
 #endif //TECHNOPARK_C_CPP_FILTER_H

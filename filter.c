@@ -29,13 +29,21 @@ bool filter_condition(const char *line) {
     return false;
 }
 
-size_t filter_strings(const char **strings_vector, int vector_size, char **filtered) {
+int filter_strings(const char **strings_vector, int vector_size, char **filtered) {
     size_t filtered_line_index = 0;
     for (size_t i = 0; i < vector_size; ++i) {
         const char* cur_line = strings_vector[i];
         if (filter_condition(cur_line)) {
             // if the line satisfies the condition, add to filtered
-            filtered[filtered_line_index] = (char*) malloc((strlen(cur_line) + 1) * sizeof(char));
+            char *new_line = (char*) malloc(strlen(cur_line) + 1);
+            if (!new_line) {
+                // if unable to allocate memory, must clear memory from all the previous allocations
+                for (size_t j = 0; j < filtered_line_index; ++j) {
+                    free(filtered[j]);
+                }
+                return FILTER_FAILED;
+            }
+            filtered[filtered_line_index] = new_line;
             strcpy(filtered[filtered_line_index], cur_line);
             ++filtered_line_index;
         }
