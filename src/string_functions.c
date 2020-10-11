@@ -7,7 +7,13 @@ size_t strlen(const char *str) {
 }
 
 char* strcpy(char *to, const char *from) {
+    if (to == NULL || from == NULL)
+        return NULL;
+
     char *tmp = to;
-    while ((*to++ = *from++));
+    while (*from != '\0') {
+        *to++ = *from++;
+    }
+    *to = '\0';
     return tmp;
 }
