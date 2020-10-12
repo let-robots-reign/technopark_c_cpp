@@ -7,6 +7,8 @@
 #include <stdbool.h>
 
 bool filter_condition(const char *line);
-int filter_strings(const char **strings_vector, size_t vector_size, char **filtered);
 
-#endif //TECHNOPARK_C_CPP_FILTER_H
+int filter_strings(const char **strings_vector, size_t vector_size,
+                   char **filtered);
+
+#endif  // TECHNOPARK_C_CPP_FILTER_H

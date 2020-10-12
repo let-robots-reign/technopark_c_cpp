@@ -2,15 +2,17 @@
  * Вариант #65
  * Составить программу построчной фильтрации текста, вводимого пользователем.
  * Суть фильтра — отбор строк, содержащих, как минимум, три различных символа.
- * Фильтр должен быть реализован как функция, принимающая на вход указатель на вектор строк,
- * их количество и указатель на результирующую структуру. На выход функция должна возвращать количество строк
- * в результирующей структуре. Результат обработки выводится на экран.
+ * Фильтр должен быть реализован как функция, принимающая на вход указатель на
+ * вектор строк, их количество и указатель на результирующую структуру. На выход
+ * функция должна возвращать количество строк в результирующей структуре.
+ * Результат обработки выводится на экран.
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "string_functions.h"
+
 #include "filter.h"
+#include "string_functions.h"
 
 #define INIT_SIZE 2
 #define LINE_LENGTH 100
@@ -22,10 +24,12 @@ typedef struct StringsVector {
 } StringsVector;
 
 StringsVector input_strings_vector();
-StringsVector empty_strings_vector();
-void print_vector(char **strings, size_t size);
-void free_vector(char **strings, size_t size);
 
+StringsVector empty_strings_vector();
+
+void print_vector(char **strings, size_t size);
+
+void free_vector(char **strings, size_t size);
 
 int main() {
     puts("Enter lines. To stop, enter a blank line");
@@ -39,7 +43,7 @@ int main() {
         return 0;
     }
 
-    char **filtered = (char**) malloc(sv.capacity * sizeof(char*));
+    char **filtered = (char **) malloc(sv.capacity * sizeof(char *));
     if (!filtered) {
         puts("Failed to allocate memory for filtered strings");
         return 1;
@@ -65,14 +69,13 @@ int main() {
     return 0;
 }
 
-
 StringsVector input_strings_vector() {
     size_t size = INIT_SIZE;
     size_t capacity = 0;
     char line[LINE_LENGTH];
     size_t len;
 
-    char **strings = (char**) malloc(size * sizeof(char*));
+    char **strings = (char **) malloc(size * sizeof(char *));
     if (!strings) {
         return empty_strings_vector();
     }
@@ -81,8 +84,8 @@ StringsVector input_strings_vector() {
         // grow array if necessary
         if (size == capacity) {
             size *= 2;
-            char **old_buffer = strings; // save pointer in case realloc fails
-            strings = (char**) realloc(strings, size * sizeof(char*));
+            char **old_buffer = strings;  // save pointer in case realloc fails
+            strings = (char **) realloc(strings, size * sizeof(char *));
             if (!strings) {
                 free(old_buffer);
                 return empty_strings_vector();
@@ -94,7 +97,7 @@ StringsVector input_strings_vector() {
             line[--len] = '\0';
         }
 
-        char *new_line = (char*) malloc(strlen(line) + 1);
+        char *new_line = (char *) malloc(strlen(line) + 1);
         if (!new_line) {
             return empty_strings_vector();
         }
@@ -107,12 +110,10 @@ StringsVector input_strings_vector() {
     return sv;
 }
 
-
 StringsVector empty_strings_vector() {
     StringsVector sv = {NULL, 0, 0};
     return sv;
 }
-
 
 void print_vector(char **strings, size_t size) {
     for (size_t i = 0; i < size; ++i) {
