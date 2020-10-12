@@ -29,7 +29,7 @@ bool filter_condition(const char *line) {
     return false;
 }
 
-int filter_strings(const char **strings_vector, int vector_size, char **filtered) {
+int filter_strings(const char **strings_vector, size_t vector_size, char **filtered) {
     size_t filtered_line_index = 0;
     for (size_t i = 0; i < vector_size; ++i) {
         const char* cur_line = strings_vector[i];

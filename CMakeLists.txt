@@ -13,5 +13,9 @@ add_executable(test_string test/string_functions_test.cpp)
 target_link_libraries(test_string filter_lib)
 target_link_libraries(test_string ${GTEST_LIBRARIES} pthread)
 
+add_executable(test_filter test/filter_test.cpp)
+target_link_libraries(test_filter filter_lib)
+target_link_libraries(test_filter ${GTEST_LIBRARIES} pthread)
+
 add_executable(hw1 src/main.c)
 target_link_libraries(hw1 filter_lib)

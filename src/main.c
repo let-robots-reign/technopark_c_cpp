@@ -44,7 +44,7 @@ int main() {
         puts("Failed to allocate memory for filtered strings");
         return 1;
     }
-    int count_filtered = filter_strings((const char **) sv.strings, sv.capacity, filtered);
+    const int count_filtered = filter_strings((const char **) sv.strings, sv.capacity, filtered);
     if (count_filtered == FILTER_FAILED) {
         puts("Failed to allocate memory for a filtered string");
         free(filtered);

@@ -4,12 +4,9 @@
 #define NEEDED_UNIQUES 3
 #define FILTER_FAILED -1
 
-typedef enum {
-    false,
-    true
-} bool;
+#include <stdbool.h>
 
 bool filter_condition(const char *line);
-int filter_strings(const char **strings_vector, int vector_size, char **filtered);
+int filter_strings(const char **strings_vector, size_t vector_size, char **filtered);
 
 #endif //TECHNOPARK_C_CPP_FILTER_H
