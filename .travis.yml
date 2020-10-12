@@ -22,9 +22,9 @@ install:
 before_script:
   # before running, let's apply clang-format
   - cd src
-  - clang-format -i -style=Google *.h *.c *.cpp
+  - clang-format -i -style=Google *.h *.c
   - cd ../test
-  - clang-format -i -style=Google *.h *.c *.cpp
+  - clang-format -i -style=Google *.cpp
 
 script:
   - cmake
