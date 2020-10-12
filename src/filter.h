@@ -5,6 +5,7 @@
 #define FILTER_FAILED -1
 
 #include <stdbool.h>
+#include <stddef.h>
 
 bool filter_condition(const char *line);
 
