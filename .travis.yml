@@ -25,6 +25,7 @@ before_script:
   - clang-format -i -style=Google *.h *.c
   - cd ../test
   - clang-format -i -style=Google *.cpp
+  - cd ..
 
 script:
   - cmake .
