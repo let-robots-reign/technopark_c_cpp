@@ -32,3 +32,6 @@ script:
   - make || travis_terminate 1
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_string || travis_terminate 1
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test_filter || travis_terminate 1
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash)

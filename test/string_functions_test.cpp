@@ -19,6 +19,7 @@ TEST(StringFunctionsTest, test_copy) {
     char wider_string[10];
     EXPECT_STREQ(strcpy(wider_string, lesser_string), "abcd");
     EXPECT_STREQ(lesser_string, "abcd"); // source shouldn't be changed after copy
+    EXPECT_FALSE(strcpy(lesser_string, NULL));
 }
 
 int main(int argc, char **argv) {

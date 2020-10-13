@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 project(technopark_c_cpp)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_FLAGS "--coverage")
+set(CMAKE_CXX_FLAGS "--coverage")
 
 set(LIB_SOURCE src/string_functions.h src/string_functions.c src/filter.h src/filter.c)
 add_library(filter_lib STATIC ${LIB_SOURCE})
