@@ -6,11 +6,12 @@ os: linux
 compiler: gcc
 
 install:
-  # cmake, clang-form, valgrind
+  # cmake, clang-form, valgrind, lcov
   - sudo apt update
   - sudo apt install clang-format
   - sudo apt install valgrind
   - sudo apt install cmake
+  - sudo apt install lcov
   # GTest
   - sudo apt install libgtest-dev
   # configure after installation
@@ -33,4 +34,5 @@ script:
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./gtest || travis_terminate 1
 
 after_script:
+  - lcov --capture --directory ./CMakeFiles/filter_lib.dir/src --output-file coverage.info
   - bash <(curl -s https://codecov.io/bash)
