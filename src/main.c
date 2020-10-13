@@ -12,7 +12,7 @@
 
 int main() {
     puts("Enter lines. To stop, enter a blank line");
-    const StringsVector sv = input_strings_vector();
+    const StringsVector sv = input_strings_vector(stdin);
     if (!sv.strings && !sv.size) {
         puts("Failed to allocate memory for input strings");
         return 1;

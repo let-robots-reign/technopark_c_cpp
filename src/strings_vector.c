@@ -1,6 +1,6 @@
 #include "strings_vector.h"
 
-StringsVector input_strings_vector() {
+StringsVector input_strings_vector(FILE *file) {
     size_t size = INIT_SIZE;
     size_t capacity = 0;
     char line[LINE_LENGTH];
@@ -11,7 +11,7 @@ StringsVector input_strings_vector() {
         return empty_strings_vector();
     }
 
-    while (fgets(line, LINE_LENGTH, stdin) != NULL && (len = strlen(line)) > 1) {
+    while (fgets(line, LINE_LENGTH, file) != NULL && (len = strlen(line)) > 1) {
         // grow array if necessary
         if (size == capacity) {
             size *= 2;

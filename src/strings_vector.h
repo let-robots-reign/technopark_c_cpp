@@ -15,7 +15,7 @@ typedef struct StringsVector {
     size_t capacity;
 } StringsVector;
 
-StringsVector input_strings_vector();
+StringsVector input_strings_vector(FILE *file);
 
 StringsVector empty_strings_vector();
 

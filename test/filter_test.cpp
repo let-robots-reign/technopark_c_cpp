@@ -17,13 +17,7 @@ TEST(FilterTest, test_filter_vector) {
     const size_t SIZE = 5;
     const char *vector[SIZE] = {"abcd", "eeee", "ijjj", "mnoo", "qrst"};
     char **filtered = (char**) malloc(SIZE * sizeof(char*));
-    if (!filtered) {
-        GTEST_FAIL() << " Failed to allocate memory for filtered strings";
-    }
     const int count_filtered = filter_strings((const char **) vector, SIZE, filtered);
-    if (!filtered) {
-        GTEST_FAIL() << " Failed to filter strings";
-    }
     ASSERT_EQ(count_filtered, 3);
     const char *right_filtered[3] = {"abcd", "mnoo", "qrst"};
     for (size_t i = 0; i < count_filtered; ++i) {
