@@ -39,7 +39,7 @@ TEST(StringsVectorTest, test_free_vector) {
 TEST(StringVectorTest, test_input_line) {
     const size_t SIZE = 6;
     const char *vector[SIZE] = {"hello\n", "there\n", "hi\n", "123\n", "a\n", "hi io\n"};
-    FILE *file = fopen("../test/test_input.txt", "r");
+    FILE *file = fopen("/home/travis/build/let-robots-reign/technopark_c_cpp/test/test_input.txt", "r");
     for (size_t i = 0; i < SIZE; ++i) {
         EXPECT_STREQ(input_line(file),vector[i]);
     }
