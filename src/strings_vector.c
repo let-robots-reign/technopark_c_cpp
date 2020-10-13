@@ -1,17 +1,41 @@
 #include "strings_vector.h"
 
+
+char *input_line(FILE *file) {
+    const size_t CHUNK = 64;
+    char *input = NULL;
+    char buffer[CHUNK];
+    size_t input_len = 0, temp_len = 0;
+    do {
+        if (fgets(buffer, CHUNK, file) == NULL) {
+            return NULL;
+        }
+        temp_len = strlen(buffer);
+        char *old_input = input; // save pointer in case realloc fails
+        input = realloc(input, input_len + temp_len + 1);
+        if (!input) {
+            free(old_input);
+            return NULL;
+        }
+        strcpy(input + input_len, buffer);
+        input_len += temp_len;
+    } while (temp_len == CHUNK - 1 && buffer[CHUNK - 2] != '\n');
+
+    return input;
+}
+
 StringsVector input_strings_vector(FILE *file) {
     size_t size = INIT_SIZE;
     size_t capacity = 0;
-    char line[LINE_LENGTH];
-    size_t len;
 
     char **strings = (char **) malloc(size * sizeof(char *));
     if (!strings) {
         return empty_strings_vector();
     }
 
-    while (fgets(line, LINE_LENGTH, file) != NULL && (len = strlen(line)) > 1) {
+    char *line = input_line(file);
+    size_t len;
+    while (line != NULL && (len = strlen(line)) > 1) {
         // grow array if necessary
         if (size == capacity) {
             size *= 2;
@@ -35,6 +59,8 @@ StringsVector input_strings_vector(FILE *file) {
         strings[capacity] = new_line;
         strcpy(strings[capacity], line);
         ++capacity;
+
+        line = input_line(file);
     }
 
     StringsVector sv = {strings, size, capacity};

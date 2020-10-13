@@ -26,14 +26,23 @@ TEST(StringsVectorTest, test_print_vector) {
 TEST(StringsVectorTest, test_free_vector) {
     const size_t SIZE = 3;
     const char *set[SIZE] = {"abcd", "hello", "111"};
-    char **vector = (char**) malloc(SIZE * sizeof(char*));
+    char **vector = (char **) malloc(SIZE * sizeof(char *));
     for (size_t i = 0; i < SIZE; ++i) {
-        char *str = (char*) malloc(strlen(set[i]) + 1);
+        char *str = (char *) malloc(strlen(set[i]) + 1);
         vector[i] = str;
         strcpy(vector[i], set[i]);
     }
     free_vector(vector, SIZE);
     ASSERT_TRUE(vector); // vector is still valid
+}
+
+TEST(StringVectorTest, test_input_line) {
+    const size_t SIZE = 6;
+    const char *vector[SIZE] = {"hello\n", "there\n", "hi\n", "123\n", "a\n", "hi io\n"};
+    FILE *file = fopen("../test/test_input.txt", "r");
+    for (size_t i = 0; i < SIZE; ++i) {
+        EXPECT_STREQ(input_line(file),vector[i]);
+    }
 }
 
 TEST(StringVectorTest, test_input_vector) {

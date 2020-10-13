@@ -7,13 +7,14 @@
 #include "string_functions.h"
 
 #define INIT_SIZE 2
-#define LINE_LENGTH 100
 
 typedef struct StringsVector {
     char **strings;
     size_t size;
     size_t capacity;
 } StringsVector;
+
+char *input_line(FILE *file);
 
 StringsVector input_strings_vector(FILE *file);
 
