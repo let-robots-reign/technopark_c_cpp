@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/let-robots-reign/technopark_c_cpp.svg?branch=develop)](https://travis-ci.com/let-robots-reign/technopark_c_cpp)
-[![codecov](https://codecov.io/gh/let-robots-reign/technopark_c_cpp/branch/main/graph/badge.svg)](https://codecov.io/gh/let-robots-reign/technopark_c_cpp)
+[![codecov](https://codecov.io/gh/let-robots-reign/technopark_c_cpp/branch/develop/graph/badge.svg)](https://codecov.io/gh/let-robots-reign/technopark_c_cpp)
 
 # ИЗ №1
 Вариант #65
