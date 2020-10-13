@@ -34,5 +34,5 @@ script:
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./gtest || travis_terminate 1
 
 after_script:
-  - lcov --capture --directory ./CMakeFiles/filter_lib.dir/src --output-file coverage.info
-  - bash <(curl -s https://codecov.io/bash)
+  - lcov --capture --directory ./CMakeFiles/filter_lib.dir/src/ --output-file coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
