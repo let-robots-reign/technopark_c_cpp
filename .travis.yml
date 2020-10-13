@@ -6,12 +6,14 @@ os: linux
 compiler: gcc
 
 install:
-  # cmake, clang-form, valgrind, lcov
+  # cmake, clang-format, valgrind, lcov
   - sudo apt update
   - sudo apt install clang-format
   - sudo apt install valgrind
   - sudo apt install cmake
   - sudo apt install lcov
+  # add linters
+  - sudo apt install cppcheck
   # GTest
   - sudo apt install libgtest-dev
   # configure after installation
@@ -27,6 +29,9 @@ before_script:
   - cd ../test
   - clang-format -i -style=Google *.cpp
   - cd ..
+  # and apply linters
+  # suppressing a false positive warning
+  - cppcheck . --suppress=nullPointer:test/string_functions_test.cpp *.c *.cpp *.h
 
 script:
   - cmake .
