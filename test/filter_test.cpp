@@ -14,8 +14,8 @@ TEST(FilterTest, test_filter_condition) {
 
 
 TEST(FilterTest, test_filter_vector) {
-    const char *vector[5] = {"abcd", "eeee", "ijjj", "mnoo", "qrst"};
-    const int SIZE = 5;
+    const size_t SIZE = 5;
+    const char *vector[SIZE] = {"abcd", "eeee", "ijjj", "mnoo", "qrst"};
     char **filtered = (char**) malloc(SIZE * sizeof(char*));
     if (!filtered) {
         GTEST_FAIL() << " Failed to allocate memory for filtered strings";

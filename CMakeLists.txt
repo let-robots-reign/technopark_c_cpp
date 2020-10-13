@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_FLAGS "--coverage")
 set(CMAKE_CXX_FLAGS "--coverage")
 
-set(LIB_SOURCE src/string_functions.h src/string_functions.c src/filter.h src/filter.c)
+set(LIB_SOURCE src/string_functions.h src/string_functions.c src/filter.h src/filter.c src/strings_vector.h src/strings_vector.c)
 add_library(filter_lib STATIC ${LIB_SOURCE})
 
 find_package(GTest REQUIRED)
@@ -18,6 +18,10 @@ target_link_libraries(test_string ${GTEST_LIBRARIES} pthread)
 add_executable(test_filter test/filter_test.cpp)
 target_link_libraries(test_filter filter_lib)
 target_link_libraries(test_filter ${GTEST_LIBRARIES} pthread)
+
+add_executable(test_vector test/strings_vector_test.cpp)
+target_link_libraries(test_vector filter_lib)
+target_link_libraries(test_vector ${GTEST_LIBRARIES} pthread)
 
 add_executable(hw1 src/main.c)
 target_link_libraries(hw1 filter_lib)
