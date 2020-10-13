@@ -1,5 +1,5 @@
 dist: focal  # используем Ubuntu 20.04
-sudo: required  # испоьлзуем Virtual Machine
+sudo: required  # используем Virtual Machine
 
 language: c
 os: linux
@@ -12,7 +12,7 @@ install:
   - sudo apt install valgrind
   - sudo apt install cmake
   - sudo apt install lcov
-  # add linters
+  # add cppcheck linter
   - sudo apt install cppcheck
   # GTest
   - sudo apt install libgtest-dev
@@ -29,9 +29,9 @@ before_script:
   - cd ../test
   - clang-format -i -style=Google *.cpp
   - cd ..
-  # and apply linters
-  # suppressing a false positive warning
-  - cppcheck . --suppress=nullPointer:test/string_functions_test.cpp *.c *.cpp *.h
+  # apply cppcheck linter
+  # suppressing two false positive warnings
+  - cppcheck . --inconclusive --enable=all --language=c --suppress=nullPointer:test/string_functions_test.cpp --suppress=constArgument
 
 script:
   - cmake .
