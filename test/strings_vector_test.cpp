@@ -42,8 +42,3 @@ TEST(StringVectorTest, test_input_vector) {
     EXPECT_EQ(sv.capacity, 6);
     EXPECT_EQ(sv.size, 8);
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

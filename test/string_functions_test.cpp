@@ -21,8 +21,3 @@ TEST(StringFunctionsTest, test_copy) {
     EXPECT_STREQ(lesser_string, "abcd"); // source shouldn't be changed after copy
     EXPECT_FALSE(strcpy(lesser_string, NULL));
 }
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

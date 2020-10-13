@@ -24,9 +24,3 @@ TEST(FilterTest, test_filter_vector) {
         EXPECT_STREQ(filtered[i], right_filtered[i]);
     }
 }
-
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

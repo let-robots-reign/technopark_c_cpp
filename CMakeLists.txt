@@ -11,17 +11,9 @@ add_library(filter_lib STATIC ${LIB_SOURCE})
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(test_string test/string_functions_test.cpp)
-target_link_libraries(test_string filter_lib)
-target_link_libraries(test_string ${GTEST_LIBRARIES} pthread)
-
-add_executable(test_filter test/filter_test.cpp)
-target_link_libraries(test_filter filter_lib)
-target_link_libraries(test_filter ${GTEST_LIBRARIES} pthread)
-
-add_executable(test_vector test/strings_vector_test.cpp)
-target_link_libraries(test_vector filter_lib)
-target_link_libraries(test_vector ${GTEST_LIBRARIES} pthread)
+add_executable(gtest test/string_functions_test.cpp test/strings_vector_test.cpp test/filter_test.cpp test/main_test.cpp)
+target_link_libraries(gtest filter_lib)
+target_link_libraries(gtest ${GTEST_LIBRARIES} pthread)
 
 add_executable(hw1 src/main.c)
 target_link_libraries(hw1 filter_lib)
