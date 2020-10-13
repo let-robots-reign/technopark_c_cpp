@@ -37,7 +37,7 @@ TEST(StringsVectorTest, test_free_vector) {
 }
 
 TEST(StringVectorTest, test_input_vector) {
-    StringsVector sv = input_strings_vector(fopen("../test/test_input.txt", "r"));
+    StringsVector sv = input_strings_vector(fopen("/home/travis/build/let-robots-reign/technopark_c_cpp/test/test_input.txt", "r"));
     EXPECT_TRUE(sv.strings);
     EXPECT_EQ(sv.capacity, 6);
     EXPECT_EQ(sv.size, 8);
