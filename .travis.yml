@@ -1,0 +1,43 @@
+dist: focal  # используем Ubuntu 20.04
+sudo: required  # используем Virtual Machine
+
+language: c
+os: linux
+compiler: gcc
+
+install:
+  # cmake, clang-format, valgrind, lcov
+  - sudo apt update
+  - sudo apt install clang-format
+  - sudo apt install valgrind
+  - sudo apt install cmake
+  - sudo apt install lcov
+  # add cppcheck linter
+  - sudo apt install cppcheck
+  # GTest
+  - sudo apt install libgtest-dev
+  # configure after installation
+  - cd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - cd -
+
+before_script:
+  # before running, let's apply clang-format
+  - cd src
+  - clang-format -i -style=Google *.h *.c
+  - cd ../test
+  - clang-format -i -style=Google *.cpp
+  - cd ..
+  # apply cppcheck linter
+  # suppressing two false positive warnings
+  - cppcheck . --inconclusive --enable=all --language=c --suppress=nullPointer:test/string_functions_test.cpp --suppress=constArgument
+
+script:
+  - cmake .
+  - make || travis_terminate 1
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./gtest || travis_terminate 1
+
+after_script:
+  - lcov --capture --directory ./CMakeFiles/filter_lib.dir/src/ --output-file coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
