@@ -85,7 +85,7 @@ int read_comments_from_file(const char *infile, comment **comments) {
     size_t id = 0;
     double avg_grade = 0;
     unsigned int votes_count = 0;
-    for (int i = 0; i < comments_count; ++i) {
+    for (size_t i = 0; i < comments_count; ++i) {
         int ret_code;
         if ((ret_code = read_id(file, &id)) < 0) return ret_code;
         if ((ret_code = read_grade(file, &avg_grade)) < 0) return ret_code;

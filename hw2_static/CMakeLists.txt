@@ -3,9 +3,10 @@ project("hw2_static")
 
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCES src/read_comments.c)
+FILE(GLOB SOURCES src/*.c)
+FILE(GLOB HEADERS include/*.h)
 include_directories("include/")
 
-add_library(${PROJECT_NAME}_lib STATIC ${SOURCES})
+add_library(${PROJECT_NAME}_lib STATIC ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
