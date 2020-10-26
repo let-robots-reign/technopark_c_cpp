@@ -17,4 +17,6 @@ int read_votes(FILE *infile, unsigned int *votes);
 
 int read_comments_from_file(const char *infile, comment **comments);
 
+void abort_read(FILE *file, comment *array);
+
 #endif //TECHNOPARK_C_CPP_READ_COMMENTS_H

@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "--coverage -pthread")
 
 add_subdirectory(hw2_static)
+file(COPY test_input_files DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(technopark_c_cpp main.c)
 target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw2_static_lib)

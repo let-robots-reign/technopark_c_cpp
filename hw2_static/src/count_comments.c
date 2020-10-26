@@ -1,6 +1,6 @@
 #include "count_comments.h"
 
-int count_zero_votes_comments(comment *comments, size_t size) {
+int count_zero_votes_comments(const comment *comments, size_t size) {
     if (!comments) {
         return ARRAY_IS_NULL;
     }

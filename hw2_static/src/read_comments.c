@@ -2,7 +2,7 @@
 
 bool valid_grade(double grade) {
     // Из условия: целое 0 или вещественное от 1,0 до 5,0
-    double eps = 10e3;
+    double eps = 10e-3;
     return grade == 0 || (grade - 1) >= eps && (grade - 5) <= eps;
 }
 
@@ -23,13 +23,18 @@ int read_comments_count(FILE *infile) {
 }
 
 int read_id(FILE *infile, size_t *id) {
-    int args_read = fscanf(infile, "%zu", id);
+    long long tmp_id = 0;
+    int args_read = fscanf(infile, "%lld", &tmp_id);
     if (args_read == EOF) {
         return EMPTY_FILE;
     }
     if (args_read != 1) {
         return WRONG_FILE_FORMAT;
     }
+    if (tmp_id < 0) {
+        return WRONG_FILE_FORMAT;
+    }
+    *id = (size_t) tmp_id;
     return SUCCESS;
 }
 
@@ -63,6 +68,11 @@ int read_votes(FILE *infile, unsigned int *votes) {
     return SUCCESS;
 }
 
+void abort_read(FILE *file, comment *array) {
+    free(array);
+    fclose(file);
+}
+
 int read_comments_from_file(const char *infile, comment **comments) {
     FILE *file = fopen(infile, "r");
     if (!file) {
@@ -80,21 +90,30 @@ int read_comments_from_file(const char *infile, comment **comments) {
         fclose(file);
         return MALLOC_ERROR;
     }
-    *comments = array;
 
     size_t id = 0;
     double avg_grade = 0;
     unsigned int votes_count = 0;
     for (size_t i = 0; i < comments_count; ++i) {
         int ret_code;
-        if ((ret_code = read_id(file, &id)) < 0) return ret_code;
-        if ((ret_code = read_grade(file, &avg_grade)) < 0) return ret_code;
-        if ((ret_code = read_votes(file, &votes_count)) < 0) return ret_code;
+        if ((ret_code = read_id(file, &id)) < 0) {
+            abort_read(file, array);
+            return ret_code;
+        }
+        if ((ret_code = read_grade(file, &avg_grade)) < 0) {
+            abort_read(file, array);
+            return ret_code;
+        }
+        if ((ret_code = read_votes(file, &votes_count)) < 0) {
+            abort_read(file, array);
+            return ret_code;
+        }
 
         comment cmnt = {id, avg_grade, votes_count};
-        (*comments)[i] = cmnt;
+        array[i] = cmnt;
     }
 
+    *comments = array;
     fclose(file);
     return comments_count;
 }

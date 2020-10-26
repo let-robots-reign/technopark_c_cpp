@@ -7,6 +7,8 @@ FILE(GLOB SOURCES src/*.c)
 FILE(GLOB HEADERS include/*.h)
 include_directories("include/")
 
+add_subdirectory(test)
+
 add_library(${PROJECT_NAME}_lib STATIC ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
