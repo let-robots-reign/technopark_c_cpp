@@ -6,7 +6,7 @@ extern "C" {
 
 TEST(CountComments, count_in_correct_random_array) {
     const size_t array_size = 5;
-    const comment comments[array_size] = {
+    comment comments[array_size] = {
             {0, 1.7, 20},
             {1, 3.8,   17},
             {2, 0,   0},
@@ -19,7 +19,7 @@ TEST(CountComments, count_in_correct_random_array) {
 
 TEST(CountComments, count_all_zeroes) {
     const size_t array_size = 4;
-    const comment comments[array_size] = {
+    comment comments[array_size] = {
             {0, 0, 0},
             {1, 0, 0},
             {2, 0, 0},
@@ -30,7 +30,7 @@ TEST(CountComments, count_all_zeroes) {
 
 TEST(CountComments, count_none_zeroes) {
     const size_t array_size = 4;
-    const comment comments[array_size] = {
+    comment comments[array_size] = {
             {0, 4.1, 3},
             {1, 2.8, 12},
             {2, 4.9, 37},

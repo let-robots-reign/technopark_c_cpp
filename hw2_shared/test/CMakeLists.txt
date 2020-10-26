@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(unit_tests_static)
+project(unit_tests_shared)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_FLAGS "-pthread --coverage")
