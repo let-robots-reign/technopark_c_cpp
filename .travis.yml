@@ -48,9 +48,11 @@ script:
   - make || travis_terminate 1
   - ./hw2_with_static stress_test/stress_test.txt
   - ./hw2_with_shared stress_test/stress_test.txt
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test/unit_tests_with_static || travis_terminate 1
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./test/unit_tests_with_shared || travis_terminate 1
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./stress_test/stress_test || travis_terminate 1
+  - cd test
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_static || travis_terminate 1
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_shared || travis_terminate 1
+  - cd ../stress_test
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./stress_test || travis_terminate 1
 
 after_script:
   - lcov --capture --directory ./CMakeFiles/hw2_with_static.dir --output-file coverage.info
