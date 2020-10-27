@@ -53,6 +53,7 @@ script:
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_shared || travis_terminate 1
   - cd ../stress_test
   - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./stress_test || travis_terminate 1
+  - cd ..
 
 after_script:
   - lcov --capture --directory ./CMakeFiles/hw2_with_static.dir --output-file coverage.info
