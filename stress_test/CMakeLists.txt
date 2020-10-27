@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.16)
 project(stress_test)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_FLAGS "-pthread --coverage")
+set(CMAKE_C_FLAGS "--coverage -pthread")
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "--coverage -pthread")
 
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})

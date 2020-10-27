@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(technopark_c_cpp)
+project(hw2)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "--coverage -pthread")

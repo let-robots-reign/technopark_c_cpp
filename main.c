@@ -11,8 +11,6 @@
 #include "read_comments.h"
 #include "count_comments.h"
 
-#define DEFAULT_OUT_STREAM stdout
-
 const char *input_file_name(int argc, const char *argv[]);
 
 const char *get_error_message_for_code(int error_code);

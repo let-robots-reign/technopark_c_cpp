@@ -1,0 +1,57 @@
+dist: focal  # используем Ubuntu 20.04
+sudo: required  # используем Virtual Machine
+
+language: c
+os: linux
+compiler: gcc
+
+install:
+  # cmake, clang-format, valgrind, lcov
+  - sudo apt update
+  - sudo apt install clang-format
+  - sudo apt install valgrind
+  - sudo apt install cmake
+  - sudo apt install lcov
+  # add cppcheck linter
+  - sudo apt install cppcheck
+  # GTest
+  - sudo apt install libgtest-dev
+  # configure after installation
+  - cd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - cd -
+
+before_script:
+  # before running, let's apply clang-format
+  - clang-format -i -style=Google *.c
+  - cd hw2_static/src
+  - clang-format -i -style=Google *.c
+  - cd ../../hw2_shared/src
+  - clang-format -i -style=Google *.c
+  - cd ../../include
+  - clang-format -i -style=Google *.h
+  - cd ../test
+  - clang-format -i -style=Google *.cpp
+  - cd ../stress_test
+  - clang-format -i -style=Google *.cpp
+  - cd ..
+  # apply cppcheck linter
+  - cppcheck . --inconclusive --enable=all --language=c
+  # generate stress test file
+  - cd stress_test
+  - python3 stress_test_generation.py
+  - cd ..
+
+script:
+  - cmake .
+  - make || travis_terminate 1
+  - ./hw2_with_static stress_test/stress_test.txt
+  - ./hw2_with_shared stress_test/stress_test.txt
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_static || travis_terminate 1
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_shared || travis_terminate 1
+  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./stress_test || travis_terminate 1
+
+after_script:
+  - lcov --capture --directory ./CMakeFiles/hw2_with_static.dir --output-file coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"

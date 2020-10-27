@@ -46,7 +46,6 @@ int read_grade(FILE *infile, double *grade) {
         return WRONG_FILE_FORMAT;
     }
     if (!valid_grade(*grade)) {
-        printf("%lf\n", *grade);
         return GRADE_INVALID;
     }
     return SUCCESS;

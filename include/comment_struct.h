@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 
+#define DEFAULT_OUT_STREAM stdout
+
 #define SUCCESS 0
 #define FILE_NOT_FOUND -1
 #define EMPTY_FILE -2
