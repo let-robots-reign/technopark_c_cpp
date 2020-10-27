@@ -10,7 +10,6 @@ typedef struct comments_section {
 
 
 void *start_count(void *arg) {
-    puts("Thread started");
     comments_section *section = (comments_section *) arg;
     for (size_t i = 0; i < section->section_size; ++i) {
         if (section->comments[i].votes_count == 0) {

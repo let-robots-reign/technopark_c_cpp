@@ -8,6 +8,7 @@ add_subdirectory(hw2_static)
 add_subdirectory(hw2_shared)
 add_subdirectory(test)
 file(COPY test_input_files DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+include_directories(include/)
 
 add_executable(${PROJECT_NAME}_with_static main.c)
 target_link_libraries(${PROJECT_NAME}_with_static LINK_PUBLIC hw2_static_lib)
