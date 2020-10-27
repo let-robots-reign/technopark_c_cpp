@@ -13,9 +13,9 @@ include_directories(../include)
 FILE(GLOB SOURCES *.cpp)
 
 add_executable(${PROJECT_NAME}_with_static ${SOURCES})
-target_link_libraries(${PROJECT_NAME}_with_static LINK_PUBLIC hw2_static_lib)
-target_link_libraries(${PROJECT_NAME}_with_static LINK_PUBLIC ${GTEST_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_with_static hw2_static_lib)
+target_link_libraries(${PROJECT_NAME}_with_static ${GTEST_LIBRARIES} pthread)
 
 add_executable(${PROJECT_NAME}_with_shared ${SOURCES})
-target_link_libraries(${PROJECT_NAME}_with_shared LINK_PUBLIC hw2_shared_lib)
-target_link_libraries(${PROJECT_NAME}_with_shared LINK_PUBLIC ${GTEST_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_with_shared hw2_shared_lib)
+target_link_libraries(${PROJECT_NAME}_with_shared ${GTEST_LIBRARIES} pthread)

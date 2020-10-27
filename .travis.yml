@@ -56,5 +56,5 @@ script:
   - cd ..
 
 after_script:
-  - lcov --capture --directory ./CMakeFiles/hw2_with_static.dir --output-file coverage.info
+  - lcov --capture --directory ./hw2_static/CMakeFiles/hw2_static_lib.dir --output-file coverage.info
   - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"

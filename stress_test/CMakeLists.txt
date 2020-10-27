@@ -12,4 +12,4 @@ include_directories(${GTEST_INCLUDE_DIRS})
 file(GLOB SOURCES *.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ${GTEST_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES} pthread)
