@@ -6,4 +6,6 @@
 
 int count_zero_votes_comments(comment *comments, size_t size);
 
+int print_and_write_result_to_file(int result);
+
 #endif //TECHNOPARK_C_CPP_COUNT_COMMENTS_H

@@ -69,3 +69,14 @@ int count_zero_votes_comments(comment *comments, size_t size) {
     free(sections);
     return total_zeroes;
 }
+
+int print_and_write_result_to_file(int result) {
+    printf("Shared library: there are %d comments with 0 votes", result);
+    FILE *file = fopen("result_shared.txt", "w");
+    if (!file) {
+        return FILE_NOT_FOUND;
+    }
+    fprintf(file, "%d", result);
+    fclose(file);
+    return SUCCESS;
+}

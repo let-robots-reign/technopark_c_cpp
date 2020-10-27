@@ -11,6 +11,8 @@
 #include "read_comments.h"
 #include "count_comments.h"
 
+#define DEFAULT_OUT_STREAM stdout
+
 const char *input_file_name(int argc, const char *argv[]);
 
 const char *get_error_message_for_code(int error_code);
@@ -18,21 +20,24 @@ const char *get_error_message_for_code(int error_code);
 int main(int argc, const char *argv[]) {
     const char *file_name = input_file_name(argc, argv);
     if (!file_name) {
-        puts("Wrong number of arguments");
+        fputs("Wrong number of arguments", DEFAULT_OUT_STREAM);
         return 1;
     }
     comment *comments = NULL;
     int read_status = read_comments_from_file(file_name, &comments);
     if (read_status < 0) {
-        puts(get_error_message_for_code(read_status));
+        fputs(get_error_message_for_code(read_status), DEFAULT_OUT_STREAM);
         return 1;
     }
     int count_status = count_zero_votes_comments(comments, read_status);
     if (count_status < 0) {
-        puts(get_error_message_for_code(count_status));
+        fputs(get_error_message_for_code(count_status), DEFAULT_OUT_STREAM);
         return 1;
     }
-    printf("There are %d comments with 0 votes", count_status);
+    int write_result_error = print_and_write_result_to_file(count_status);
+    if (write_result_error < 0) {
+        fputs(get_error_message_for_code(write_result_error), DEFAULT_OUT_STREAM);
+    }
     free(comments);
 
     return 0;

@@ -2,8 +2,7 @@
 
 bool valid_grade(double grade) {
     // Из условия: целое 0 или вещественное от 1,0 до 5,0
-    double eps = 10e-3;
-    return grade == 0 || (grade - 1) >= eps && (grade - 5) <= eps;
+    return grade == 0 || (grade >= 1. && grade <= 5.);
 }
 
 int read_comments_count(FILE *infile) {
@@ -47,6 +46,7 @@ int read_grade(FILE *infile, double *grade) {
         return WRONG_FILE_FORMAT;
     }
     if (!valid_grade(*grade)) {
+        printf("%lf\n", *grade);
         return GRADE_INVALID;
     }
     return SUCCESS;
