@@ -5,7 +5,7 @@ extern "C" {
 }
 
 TEST(ReadFromFile, read_random_values) {
-    const char *infile = "../../test_input_files/random_values.txt";
+    const char *infile = "../test_input_files/random_values.txt";
     comment *comments = nullptr;
     const size_t correct_size = 5;
     const comment correct_comments[correct_size] = {
@@ -26,21 +26,21 @@ TEST(ReadFromFile, read_random_values) {
 }
 
 TEST(ReadFromFile, test_file_not_found) {
-    const char *infile = "../../test_input_files/non_existent.txt";
+    const char *infile = "../test_input_files/non_existent.txt";
     comment *comments = nullptr;
     EXPECT_EQ(read_comments_from_file(infile, &comments), FILE_NOT_FOUND);
     EXPECT_EQ(comments, nullptr);
 }
 
 TEST(ReadFromFile, test_empty_file) {
-    const char *infile = "../../test_input_files/empty_file.txt";
+    const char *infile = "../test_input_files/empty_file.txt";
     comment *comments = nullptr;
     EXPECT_EQ(read_comments_from_file(infile, &comments), EMPTY_FILE);
     EXPECT_EQ(comments, nullptr);
 }
 
 TEST(ReadFromFile, test_negative_count) {
-    const char *infile_negative_count = "../../test_input_files/negative_comments_count.txt";
+    const char *infile_negative_count = "../test_input_files/negative_comments_count.txt";
     comment *comments = nullptr;
     EXPECT_EQ(read_comments_from_file(infile_negative_count, &comments), WRONG_COUNT);
     EXPECT_EQ(comments, nullptr);
@@ -49,26 +49,26 @@ TEST(ReadFromFile, test_negative_count) {
 TEST(ReadFromFile, test_wrong_data_format) {
     comment *comments = nullptr;
 
-    const char *infile_invalid_id = "../../test_input_files/wrong_id_format.txt";
+    const char *infile_invalid_id = "../test_input_files/wrong_id_format.txt";
     EXPECT_EQ(read_comments_from_file(infile_invalid_id, &comments), WRONG_FILE_FORMAT);
     EXPECT_EQ(comments, nullptr);
 
-    const char *infile_invalid_votes = "../../test_input_files/wrong_votes_format.txt";
+    const char *infile_invalid_votes = "../test_input_files/wrong_votes_format.txt";
     EXPECT_EQ(read_comments_from_file(infile_invalid_votes, &comments), WRONG_FILE_FORMAT);
     EXPECT_EQ(comments, nullptr);
 }
 
 TEST(ReadFromFile, test_eofs) {
-    const char *infile_id_eof = "../../test_input_files/id_eof.txt";
+    const char *infile_id_eof = "../test_input_files/id_eof.txt";
     comment *comments = nullptr;
     EXPECT_EQ(read_comments_from_file(infile_id_eof, &comments), EMPTY_FILE);
     EXPECT_EQ(comments, nullptr);
 
-    const char *infile_grade_eof = "../../test_input_files/grade_eof.txt";
+    const char *infile_grade_eof = "../test_input_files/grade_eof.txt";
     EXPECT_EQ(read_comments_from_file(infile_grade_eof, &comments), EMPTY_FILE);
     EXPECT_EQ(comments, nullptr);
 
-    const char *infile_votes_eof = "../../test_input_files/votes_eof.txt";
+    const char *infile_votes_eof = "../test_input_files/votes_eof.txt";
     EXPECT_EQ(read_comments_from_file(infile_votes_eof, &comments), EMPTY_FILE);
     EXPECT_EQ(comments, nullptr);
 }
@@ -76,7 +76,7 @@ TEST(ReadFromFile, test_eofs) {
 TEST(ReadFromFile, test_invalid_grade) {
     comment *comments = nullptr;
 
-    const char *infile_invalid_grade = "../../test_input_files/invalid_grade.txt";
+    const char *infile_invalid_grade = "../test_input_files/invalid_grade.txt";
     EXPECT_EQ(read_comments_from_file(infile_invalid_grade, &comments), GRADE_INVALID);
     EXPECT_EQ(comments, nullptr);
 }
