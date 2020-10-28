@@ -18,8 +18,8 @@ install:
   - sudo apt install libgtest-dev
   # configure after installation
   - cd /usr/src/gtest
-  - cmake .
-  - make
+  - sudo cmake .
+  - sudo make
   - cd -
 
 before_script:
