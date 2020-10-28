@@ -5,7 +5,6 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "--coverage")
 
 FILE(GLOB SOURCES src/*.c)
-FILE(GLOB HEADERS include/*.h)
 include_directories("../include/")
 
 add_library(${PROJECT_NAME}_lib STATIC ${SOURCES} ${HEADERS})
