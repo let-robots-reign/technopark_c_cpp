@@ -101,9 +101,12 @@ int read_comments_from_file(const char *infile, comment **comments) {
         if ((grade_err_code = read_grade(file, &avg_grade)) < 0) error_code = grade_err_code;
         if ((votes_err_code = read_votes(file, &votes_count)) < 0) error_code = votes_err_code;
 
-        if (error_code) abort_read(file, array);
-        comment cmnt = {votes_count, id, avg_grade};
-        array[i] = cmnt;
+        if (error_code) {
+            abort_read(file, array);
+        } else {
+            comment cmnt = {votes_count, id, avg_grade};
+            array[i] = cmnt;
+        }
     }
     if (error_code) {
         return error_code;
