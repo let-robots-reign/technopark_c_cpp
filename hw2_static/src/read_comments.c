@@ -93,23 +93,20 @@ int read_comments_from_file(const char *infile, comment **comments) {
     size_t id = 0;
     double avg_grade = 0;
     unsigned int votes_count = 0;
-    for (size_t i = 0; i < comments_count; ++i) {
-        int ret_code;
-        if ((ret_code = read_id(file, &id)) < 0) {
-            abort_read(file, array);
-            return ret_code;
-        }
-        if ((ret_code = read_grade(file, &avg_grade)) < 0) {
-            abort_read(file, array);
-            return ret_code;
-        }
-        if ((ret_code = read_votes(file, &votes_count)) < 0) {
-            abort_read(file, array);
-            return ret_code;
-        }
+    size_t i;
+    int error_code;
+    for (i = 0, error_code = SUCCESS; i < comments_count && !error_code; ++i) {
+        int id_err_code, grade_err_code, votes_err_code;
+        if ((id_err_code = read_id(file, &id)) < 0) error_code = id_err_code;
+        if ((grade_err_code = read_grade(file, &avg_grade)) < 0) error_code = grade_err_code;
+        if ((votes_err_code = read_votes(file, &votes_count)) < 0) error_code = votes_err_code;
 
-        comment cmnt = {id, avg_grade, votes_count};
+        if (error_code) abort_read(file, array);
+        comment cmnt = {votes_count, id, avg_grade};
         array[i] = cmnt;
+    }
+    if (error_code) {
+        return error_code;
     }
 
     *comments = array;

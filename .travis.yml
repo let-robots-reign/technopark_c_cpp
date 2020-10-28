@@ -18,8 +18,8 @@ install:
   - sudo apt install libgtest-dev
   # configure after installation
   - cd /usr/src/gtest
-  - sudo cmake .
-  - sudo make
+  - cmake .
+  - make
   - cd -
 
 before_script:
@@ -37,7 +37,8 @@ before_script:
   - clang-format -i -style=Google *.cpp
   - cd ..
   # apply cppcheck linter
-  - cppcheck . --inconclusive --enable=all --language=c
+  - cppcheck hw2_shared/ hw2_static/ include/ main.c --inconclusive --enable=all --error-exitcode=1 --language=c
+  - cppcheck test/ stress_test/ --inconclusive --enable=all --error-exitcode=1 --language=c++
   # generate stress test file
   - cd stress_test
   - python3 stress_test_generation.py
@@ -49,12 +50,20 @@ script:
   - ./hw2_with_static stress_test/stress_test.txt
   - ./hw2_with_shared stress_test/stress_test.txt
   - cd test
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_static || travis_terminate 1
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./unit_tests_with_shared || travis_terminate 1
+  - valgrind --error-exitcode=1 --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med --track-origins=yes ./unit_tests_with_static || travis_terminate 1
+  - valgrind --error-exitcode=1 --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med --track-origins=yes ./unit_tests_with_shared || travis_terminate 1
   - cd ../stress_test
-  - valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med  --track-origins=yes ./stress_test || travis_terminate 1
+  - valgrind --error-exitcode=1 --tool=memcheck --leak-check=full --show-leak-kinds=all --leak-resolution=med --track-origins=yes ./stress_test || travis_terminate 1
+  - cd ..
+  # measure execution time
+  - cd stress_test
+  - ./measure_static
+  - ./measure_shared
   - cd ..
 
 after_script:
-  - lcov --capture --directory ./hw2_static/CMakeFiles/hw2_static_lib.dir --output-file coverage.info
-  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+  - lcov --capture --directory ./hw2_static/CMakeFiles/hw2_static_lib.dir --output-file coverage_static.info
+  - lcov --capture --directory ./hw2_shared/CMakeFiles/hw2_shared_lib.dir --output-file coverage_shared.info
+  # merging two coverages into one file
+  - lcov -a coverage_static.info -a coverage_shared.info -o total.info
+  - bash <(curl -s https://codecov.io/bash) -f total.info || echo "Codecov did not collect coverage reports"

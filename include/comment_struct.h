@@ -17,11 +17,13 @@
 
 #define SECTION_ALLOC_ERROR -8
 #define CREATE_THREAD_ERROR -9
+#define SET_AFFINITY_ERROR -10
 
+// now uses 16 bytes instead of 24
 typedef struct comment {
-    size_t id;
-    double avg_grade;
     unsigned int votes_count;
+    int id;
+    double avg_grade;
 } comment;
 
 #endif //TECHNOPARK_C_CPP_COMMENT_STRUCT_H

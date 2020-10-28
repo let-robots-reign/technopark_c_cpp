@@ -10,9 +10,7 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(../include)
 
-file(GLOB SOURCES *.cpp)
-
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} compare_test.cpp main_test.cpp)
 target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES} pthread)
 
 add_executable(measure_static measure.cpp)

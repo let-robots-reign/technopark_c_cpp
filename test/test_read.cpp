@@ -9,11 +9,11 @@ TEST(ReadFromFile, read_random_values) {
     comment *comments = nullptr;
     const size_t correct_size = 5;
     const comment correct_comments[correct_size] = {
-            {0, 1.7, 20},
-            {1, 3.8,   17},
-            {2, 0,   0},
-            {3, 2.3, 4},
-            {4, 0,   0}
+            {20, 0, 1.7},
+            {17, 1, 3.8},
+            {0, 2, 0},
+            {4, 3, 2.3},
+            {0, 4, 0}
     };
     const size_t size = read_comments_from_file(infile, &comments);
     EXPECT_EQ(size, correct_size);
