@@ -12,10 +12,16 @@ int main() {
     comment *comments = nullptr;
     int comments_count = read_comments_from_file(file_name, &comments);
 
-    auto start = std::chrono::steady_clock::now();
-    count_zero_votes_comments(comments, comments_count);
-    auto finish = std::chrono::steady_clock::now();
-    auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
-    std::cout << elapsed.count() << std::endl;
+    size_t total_time = 0;
+    const size_t TRIES = 10;
+    for (size_t i = 0; i < TRIES; ++i) {
+        auto start = std::chrono::steady_clock::now();
+        count_zero_votes_comments(comments, comments_count);
+        auto finish = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(finish - start);
+        total_time += elapsed.count();
+    }
+
+    std::cout << total_time / TRIES << std::endl;
     return 0;
 }

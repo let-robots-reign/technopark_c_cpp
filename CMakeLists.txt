@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(hw2)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "--coverage -pthread")
+set(CMAKE_C_FLAGS "--coverage -pthread -Wall -Werror -Wpedantic")
 
 add_subdirectory(hw2_static)
 add_subdirectory(hw2_shared)

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project("hw2_static")
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "--coverage")
+set(CMAKE_C_FLAGS "--coverage -Wall -Werror -Wpedantic")
 
 FILE(GLOB SOURCES src/*.c)
 include_directories("../include/")
